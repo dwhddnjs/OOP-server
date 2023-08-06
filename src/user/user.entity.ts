@@ -12,7 +12,7 @@ export class User {
   id: string;
 
   @Column()
-  name: string;
+  username: string;
 
   @Column()
   email: string;
@@ -21,8 +21,8 @@ export class User {
   password: string;
 
   @CreateDateColumn()
-  createdDate: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedDate: Date;
+  updatedAt: Date;
 }
