@@ -3,6 +3,7 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 import dotenv = require('dotenv');
 
 dotenv.config();
@@ -21,6 +22,7 @@ dotenv.config();
     }),
     ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
+    AuthModule,
   ],
   providers: [ConfigService],
 })

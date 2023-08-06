@@ -17,4 +17,8 @@ export class UserService {
     user.password = createUserDto.password;
     return await this.userRepository.save(user);
   }
+
+  async findOne(username: string): Promise<User> {
+    return this.userRepository.findOneBy({ name: username });
+  }
 }
