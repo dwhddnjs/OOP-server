@@ -20,6 +20,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  refreshToken: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
