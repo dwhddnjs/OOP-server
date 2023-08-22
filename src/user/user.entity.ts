@@ -1,7 +1,10 @@
+import { Pack } from 'src/shop/pack.entity';
 import {
+  AfterInsert,
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -22,6 +25,9 @@ export class User {
 
   @Column()
   refreshToken: string;
+
+  @OneToMany((type) => Pack, (pack) => pack.user)
+  packs: Pack[];
 
   @CreateDateColumn()
   createdAt: Date;
