@@ -18,6 +18,6 @@ export class Pack {
   @Column()
   price: string;
 
-  @ManyToOne(() => User, (user) => user.packs)
+  @ManyToOne((type) => User, (user) => user.packs, { eager: false })
   user: User;
 }

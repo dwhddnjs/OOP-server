@@ -26,7 +26,7 @@ export class User {
   @Column()
   refreshToken: string;
 
-  @OneToMany((type) => Pack, (pack) => pack.user)
+  @OneToMany((type) => Pack, (pack) => pack.user, { eager: true })
   packs: Pack[];
 
   @CreateDateColumn()
