@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { ShopModule } from './shop/shop.module';
+import { StoreModule } from './store/store.module';
 import dotenv = require('dotenv');
 
 dotenv.config();
@@ -24,7 +24,7 @@ dotenv.config();
     ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
     AuthModule,
-    ShopModule,
+    StoreModule,
   ],
   providers: [ConfigService],
 })

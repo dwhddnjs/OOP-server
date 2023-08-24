@@ -1,6 +1,4 @@
-import { Pack } from 'src/shop/pack.entity';
 import {
-  AfterInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -8,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Pack } from './pack.entity';
 
 @Entity()
 export class User {
@@ -26,7 +25,7 @@ export class User {
   @Column()
   refreshToken: string;
 
-  @OneToMany((type) => Pack, (pack) => pack.user, { eager: true })
+  @OneToMany(() => Pack, (pack) => pack.user)
   packs: Pack[];
 
   @CreateDateColumn()

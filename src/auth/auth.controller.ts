@@ -11,8 +11,10 @@ import {
 
 import { SignupDto } from './dto/signup-dto';
 import { LoginDto } from './dto/login-dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
+@UseGuards(AuthGuard('jwt'))
 export class AuthController {
   constructor(private authService: AuthService) {}
 
