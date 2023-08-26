@@ -32,6 +32,7 @@ export class AuthService {
     user.password = hash;
     user.refreshToken = tokens.refresh_token;
     await this.userRepository.save(user);
+
     return {
       user,
       tokens,
@@ -40,9 +41,6 @@ export class AuthService {
 
   async login(loginDto: LoginDto): Promise<any> {
     const user = await this.userService.findOne(loginDto.email);
-    const user2 = await this.userRepository.findOneBy({
-      email: loginDto.email,
-    });
 
     if (!user) {
       throw new ForbiddenException('유저가 존재하지 않습니다');
