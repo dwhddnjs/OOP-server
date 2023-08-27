@@ -1,9 +1,18 @@
 import { AuthService } from './auth.service';
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 
 import { SignupDto } from './dto/signup-dto';
 import { LoginDto } from './dto/login-dto';
 import { AuthGuard } from '@nestjs/passport';
+import { RtGuard } from 'src/guards/rt.guard';
+import { getUser } from 'src/decorator/get-user';
 
 @Controller('auth')
 export class AuthController {
@@ -11,19 +20,26 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async login(@Body() loginDto: LoginDto) {
+  login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
 
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  async logout(userId: string): Promise<boolean> {
+  logout(userId: string): Promise<boolean> {
     return this.authService.logout(userId);
   }
 
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
-  async signup(@Body() signupDto: SignupDto) {
+  signup(@Body() signupDto: SignupDto) {
     return this.authService.signup(signupDto);
+  }
+
+  @UseGuards(RtGuard)
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  refreshTokens(@getUser() user) {
+    return this.authService.refreshTokens(user.id, user.refreshToken);
   }
 }

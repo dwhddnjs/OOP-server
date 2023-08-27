@@ -28,7 +28,7 @@ dotenv.config();
     AuthModule,
     StoreModule,
   ],
-  providers: [ConfigService, { provide: APP_GUARD, useClass: AtGuard }],
+  providers: [ConfigService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

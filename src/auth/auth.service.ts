@@ -96,4 +96,18 @@ export class AuthService {
       refresh_token: rt,
     };
   }
+
+  async refreshTokens(userId: number, rt: string): Promise<any> {
+    const user = await this.userService.findUser(userId);
+
+    if (!user) {
+      throw new ForbiddenException('Access Denied');
+    }
+
+    const tokens = await this.getTokens(user.id, user.email);
+
+    await this.updateRefresh(user.id, tokens.refresh_token);
+
+    return tokens;
+  }
 }
