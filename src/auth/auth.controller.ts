@@ -36,8 +36,8 @@ export class AuthController {
     return this.authService.signup(signupDto);
   }
 
-  @UseGuards(RtGuard)
   @Post('refresh')
+  @UseGuards(RtGuard)
   @HttpCode(HttpStatus.OK)
   refreshTokens(@getUser() user) {
     return this.authService.refreshTokens(user.id, user.refreshToken);
