@@ -1,6 +1,6 @@
 import { getUser } from 'src/decorator/get-user';
 import { StoreService } from './store.service';
-import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Req, UseGuards, Body } from '@nestjs/common';
 import { User } from 'src/entity/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { AtGuard } from 'src/guards/at.guard';
@@ -11,7 +11,7 @@ export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
   @Post()
-  purchase() {
-    return 'adsdasdsa';
+  purchase(@Body() userId) {
+    return this.storeService.purchase(userId);
   }
 }

@@ -21,14 +21,14 @@ export class AuthService {
   ) {}
 
   async signup(signupDto: SignupDto): Promise<any> {
-    const { email, username, password } = signupDto;
+    const { email, name, password } = signupDto;
 
     const user = new User();
     const tokens = await this.getTokens(email, user.id);
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(password, salt);
     user.email = email;
-    user.username = username;
+    user.name = name;
     user.password = hash;
     user.refreshToken = tokens.refresh_token;
     await this.userRepository.save(user);
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto): Promise<any> {
-    const user = await this.userService.findOne(loginDto.email);
+    const user = await this.userService.findUserEmail(loginDto.email);
 
     if (!user) {
       throw new ForbiddenException('유저가 존재하지 않습니다');
@@ -59,7 +59,7 @@ export class AuthService {
   }
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.findOne(email);
+    const user = await this.userService.findUserEmail(email);
     const isMatch = await bcrypt.compare(password, user.password);
     if (user && isMatch) {
       const { ...result } = user;
@@ -97,7 +97,7 @@ export class AuthService {
     };
   }
 
-  async refreshTokens(userId: number, rt: string): Promise<any> {
+  async refreshTokens(userId: string, rt: string): Promise<any> {
     const user = await this.userService.findUser(userId);
 
     if (!user) {

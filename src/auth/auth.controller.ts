@@ -10,9 +10,9 @@ import {
 
 import { SignupDto } from './dto/signup-dto';
 import { LoginDto } from './dto/login-dto';
-import { AuthGuard } from '@nestjs/passport';
 import { RtGuard } from 'src/guards/rt.guard';
 import { getUser } from 'src/decorator/get-user';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {

@@ -6,8 +6,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { StoreModule } from './store/store.module';
 import dotenv = require('dotenv');
-import { APP_GUARD } from '@nestjs/core';
-import { AtGuard } from './guards/at.guard';
 
 dotenv.config();
 
