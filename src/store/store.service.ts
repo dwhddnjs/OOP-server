@@ -13,8 +13,17 @@ export class StoreService {
     private readonly userService: UserService,
   ) {}
 
+  async packs(userId: number): Promise<any> {
+    const user = await this.userService.findUser(userId);
+    if (user && !user.packs) {
+      return [];
+    }
+    return user.packs;
+  }
+
   async purchase(userId): Promise<any> {
     const user = await this.userService.findUser(userId);
+    console.log('user: ', user);
 
     const pack = new Pack();
     user.packs = [...user.packs, pack];

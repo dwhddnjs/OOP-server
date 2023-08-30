@@ -8,6 +8,8 @@ import { StoreModule } from './store/store.module';
 import dotenv = require('dotenv');
 import { User } from './entity/user.entity';
 import { Pack } from './entity/pack.entity';
+import { APP_GUARD } from '@nestjs/core';
+import { AtGuard } from './guards/at.guard';
 
 dotenv.config();
 
@@ -29,7 +31,13 @@ dotenv.config();
     AuthModule,
     StoreModule,
   ],
-  providers: [ConfigService],
+  providers: [
+    ConfigService,
+    {
+      provide: APP_GUARD,
+      useClass: AtGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

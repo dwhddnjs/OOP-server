@@ -25,8 +25,7 @@ export class AuthService {
     const { email, name, password } = signupDto;
 
     const user = new User();
-    console.log('user: ', user);
-    const tokens = await this.getTokens(email, user.id);
+    const tokens = await this.getTokens(user.id, email);
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(password, salt);
     user.email = email;
@@ -72,13 +71,13 @@ export class AuthService {
     return null;
   }
 
-  async updateRefresh(id: string, rt: string): Promise<any> {
+  async updateRefresh(id: number, rt: string): Promise<any> {
     const user = await this.userRepository.findOneBy({ id });
     user.refreshToken = rt;
     return;
   }
 
-  async getTokens(userId: string, email: string): Promise<Tokens> {
+  async getTokens(userId: number, email: string): Promise<Tokens> {
     const jwtPayload: JwtPayload = {
       sub: userId,
       email,
@@ -101,7 +100,7 @@ export class AuthService {
     };
   }
 
-  async refreshTokens(userId: string, rt: string): Promise<any> {
+  async refreshTokens(userId: number, rt: string): Promise<any> {
     const user = await this.userService.findUser(userId);
 
     if (!user) {

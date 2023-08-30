@@ -13,11 +13,13 @@ import { LoginDto } from './dto/login-dto';
 import { RtGuard } from 'src/guards/rt.guard';
 import { getUser } from 'src/decorator/get-user';
 import { AuthGuard } from '@nestjs/passport';
+import { Public } from 'src/decorator/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   login(@Body() loginDto: LoginDto) {
@@ -30,12 +32,14 @@ export class AuthController {
     return this.authService.logout(userId);
   }
 
+  @Public()
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
   signup(@Body() signupDto: SignupDto) {
     return this.authService.signup(signupDto);
   }
 
+  @Public()
   @Post('refresh')
   @UseGuards(RtGuard)
   @HttpCode(HttpStatus.OK)
