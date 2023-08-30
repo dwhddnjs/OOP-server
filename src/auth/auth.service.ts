@@ -17,6 +17,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
     private config: ConfigService,
+    private logger: Logger,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
@@ -24,6 +25,7 @@ export class AuthService {
     const { email, name, password } = signupDto;
 
     const user = new User();
+    console.log('user: ', user);
     const tokens = await this.getTokens(email, user.id);
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(password, salt);
@@ -32,6 +34,8 @@ export class AuthService {
     user.password = hash;
     user.refreshToken = tokens.refresh_token;
     await this.userRepository.save(user);
+
+    console.log('user', user);
 
     return {
       user,

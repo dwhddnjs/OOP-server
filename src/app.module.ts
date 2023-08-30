@@ -6,6 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { StoreModule } from './store/store.module';
 import dotenv = require('dotenv');
+import { User } from './entity/user.entity';
+import { Pack } from './entity/pack.entity';
 
 dotenv.config();
 
@@ -18,6 +20,7 @@ dotenv.config();
       username: 'root',
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
+      entities: [User, Pack],
       autoLoadEntities: true,
       synchronize: true,
     }),
