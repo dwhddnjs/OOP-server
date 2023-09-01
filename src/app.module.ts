@@ -1,34 +1,17 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { UserModule } from './user/user.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { StoreModule } from './store/store.module';
-import dotenv = require('dotenv');
-import { User } from './entity/user.entity';
-import { Pack } from './entity/pack.entity';
 import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './guards/at.guard';
-
-dotenv.config();
+import { PrismaModule } from './prisma/prisma.module';
+import { StoreModule } from './store/store.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: '127.0.0.1',
-      port: 3306,
-      username: 'root',
-      password: process.env.PASSWORD,
-      database: process.env.DATABASE,
-      entities: [User, Pack],
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
     ConfigModule.forRoot({ isGlobal: true }),
-    UserModule,
     AuthModule,
+    PrismaModule,
     StoreModule,
   ],
   providers: [

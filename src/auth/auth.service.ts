@@ -2,39 +2,38 @@ import { LoginDto } from './dto/login-dto';
 import { SignupDto } from './dto/signup-dto';
 import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/entity/user.entity';
-import { UserService } from 'src/user/user.service';
-import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { JwtPayload } from './types';
 import { ConfigService } from '@nestjs/config';
 import { Tokens } from './types/tokens.type';
+import { PrismaService } from 'src/prisma/prisma.service';
+import * as argon from 'argon2';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UserService,
-    private jwtService: JwtService,
-    private config: ConfigService,
-    private logger: Logger,
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly logger: Logger,
+    private readonly jwtService: JwtService,
+    private readonly config: ConfigService,
+    private readonly prismaService: PrismaService,
   ) {}
 
   async signup(signupDto: SignupDto): Promise<any> {
     const { email, name, password } = signupDto;
 
-    const user = new User();
-    const tokens = await this.getTokens(user.id, email);
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(password, salt);
-    user.email = email;
-    user.name = name;
-    user.password = hash;
-    user.refreshToken = tokens.refresh_token;
-    await this.userRepository.save(user);
 
-    console.log('user', user);
+    const user = await this.prismaService.user.create({
+      data: {
+        email,
+        name,
+        password: hash,
+      },
+    });
+
+    const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRefresh(user.id, tokens.refresh_token);
 
     return {
       user,
@@ -43,41 +42,57 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto): Promise<any> {
-    const user = await this.userService.findUserEmail(loginDto.email);
+    const { email, password } = loginDto;
+
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
 
     if (!user) {
       throw new ForbiddenException('유저가 존재하지 않습니다');
     }
 
-    const token = await this.getTokens(user.id, user.email);
-    await this.updateRefresh(user.id, token.refresh_token);
+    const passwordMatches = await bcrypt.compare(password, user.password);
+    if (!passwordMatches) {
+      throw new ForbiddenException('패스워드가 다릅니다');
+    }
 
-    return { user, token };
+    const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRefresh(user.id, tokens.refresh_token);
+
+    return { user, tokens };
   }
 
-  async logout(userId): Promise<boolean> {
-    const user = await this.userRepository.findOneBy({ id: userId });
-    user.refreshToken = null;
+  async logout(userId: string): Promise<boolean> {
+    await this.prismaService.user.updateMany({
+      where: {
+        id: userId,
+        refreshToken: {
+          not: null,
+        },
+      },
+      data: {
+        refreshToken: null,
+      },
+    });
     return true;
   }
 
-  async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.findUserEmail(email);
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (user && isMatch) {
-      const { ...result } = user;
-      return result;
-    }
-    return null;
+  async updateRefresh(userId: string, rt: string): Promise<void> {
+    const hash = await argon.hash(rt);
+    await this.prismaService.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        refreshToken: hash,
+      },
+    });
   }
 
-  async updateRefresh(id: number, rt: string): Promise<any> {
-    const user = await this.userRepository.findOneBy({ id });
-    user.refreshToken = rt;
-    return;
-  }
-
-  async getTokens(userId: number, email: string): Promise<Tokens> {
+  async getTokens(userId: string, email: string): Promise<Tokens> {
     const jwtPayload: JwtPayload = {
       sub: userId,
       email,
@@ -100,15 +115,21 @@ export class AuthService {
     };
   }
 
-  async refreshTokens(userId: number, rt: string): Promise<any> {
-    const user = await this.userService.findUser(userId);
+  async refreshTokens(userId: string, rt): Promise<any> {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
 
     if (!user) {
       throw new ForbiddenException('Access Denied');
     }
 
-    const tokens = await this.getTokens(user.id, user.email);
+    const refreshMatches = await argon.verify(user.refreshToken, rt);
+    if (!refreshMatches) throw new ForbiddenException('토큰 값이 다릅니다');
 
+    const tokens = await this.getTokens(userId, user.email);
     await this.updateRefresh(user.id, tokens.refresh_token);
 
     return tokens;

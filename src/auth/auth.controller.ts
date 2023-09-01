@@ -11,8 +11,7 @@ import {
 import { SignupDto } from './dto/signup-dto';
 import { LoginDto } from './dto/login-dto';
 import { RtGuard } from 'src/guards/rt.guard';
-import { getUser } from 'src/decorator/get-user';
-import { AuthGuard } from '@nestjs/passport';
+import { getUser } from 'src/decorator/get-user.decorator';
 import { Public } from 'src/decorator/public.decorator';
 
 @Controller('auth')
