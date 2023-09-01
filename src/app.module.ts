@@ -2,9 +2,8 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { APP_GUARD } from '@nestjs/core';
-import { AtGuard } from './guards/at.guard';
 import { PrismaModule } from './prisma/prisma.module';
+import { UserModule } from './user/user.module';
 import { StoreModule } from './store/store.module';
 
 @Module({
@@ -12,15 +11,10 @@ import { StoreModule } from './store/store.module';
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     PrismaModule,
+    UserModule,
     StoreModule,
   ],
-  providers: [
-    ConfigService,
-    {
-      provide: APP_GUARD,
-      useClass: AtGuard,
-    },
-  ],
+  providers: [ConfigService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

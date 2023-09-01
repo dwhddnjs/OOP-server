@@ -5,44 +5,46 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 
-import { SignupDto } from './dto/signup-dto';
 import { LoginDto } from './dto/login-dto';
 import { RtGuard } from 'src/guards/rt.guard';
-import { getUser } from 'src/decorator/get-user.decorator';
-import { Public } from 'src/decorator/public.decorator';
+import { UserService } from 'src/user/user.service';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
-  @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
 
-  @Post('logout')
-  @HttpCode(HttpStatus.OK)
-  logout(userId: string): Promise<boolean> {
-    return this.authService.logout(userId);
-  }
-
-  @Public()
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
-  signup(@Body() signupDto: SignupDto) {
-    return this.authService.signup(signupDto);
+  signup(@Body() signupDto: CreateUserDto) {
+    return this.userService.createUser(signupDto);
   }
 
-  @Public()
-  @Post('refresh')
   @UseGuards(RtGuard)
+  @Post('refresh')
   @HttpCode(HttpStatus.OK)
-  refreshTokens(@getUser() user) {
+  refreshTokens(@Request() req) {
+    const user = req;
+    console.log('user: ', user);
     return this.authService.refreshTokens(user.id, user.refreshToken);
   }
+
+  // @Post('logout')
+  // @HttpCode(HttpStatus.OK)
+  // logout(userId: string): Promise<boolean> {
+  //   return this.authService.logout(userId);
+  // }
 }

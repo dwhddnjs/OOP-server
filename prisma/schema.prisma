@@ -12,14 +12,14 @@ datasource db {
 
 
 model User {
-  id    String     @default(uuid()) @id
+  id    String   @id @default(uuid()) 
   name  String?
   email String  @unique
   password String
-  refreshToken String? 
+  refreshToken String? @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  packs Pack[] @relation()
+  packs Pack[] @relation("UserToPack")
 }
 
 model Pack {
@@ -27,7 +27,7 @@ model Pack {
   label String
   price Int
   userId String
-  user User @relation( fields: [userId], references: [id])
+  user User @relation("UserToPack", fields: [userId], references: [id])
 
   @@index([userId])
 }
