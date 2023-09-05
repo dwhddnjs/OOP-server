@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { StoreModule } from './store/store.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TransformInterceptor } from './interceptor/response-message.interceptor';
 
 @Module({
   imports: [
@@ -14,7 +16,13 @@ import { StoreModule } from './store/store.module';
     UserModule,
     StoreModule,
   ],
-  providers: [ConfigService],
+  providers: [
+    ConfigService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

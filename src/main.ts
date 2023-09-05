@@ -8,7 +8,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000, 'localhost');
+  app.enableCors();
+  await app.listen(3003, 'localhost');
   console.log(`Application is running on: ${await app.getUrl()}`);
 
   if (module.hot) {
