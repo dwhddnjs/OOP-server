@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { StoreModule } from './store/store.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TransformInterceptor } from './interceptor/response-message.interceptor';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TransformInterceptor } from './interceptor/response-message.interceptor
     PrismaModule,
     UserModule,
     StoreModule,
+    CardModule,
   ],
   providers: [
     ConfigService,

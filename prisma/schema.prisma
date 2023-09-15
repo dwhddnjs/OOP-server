@@ -20,6 +20,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   packs Pack[] @relation("UserToPack")
+  cards Card[] @relation("UserToCard")
 }
 
 model Pack {
@@ -29,5 +30,15 @@ model Pack {
   userId String
   user User @relation("UserToPack", fields: [userId], references: [id])
 
+  @@index([userId])
+}
+
+model Card {
+  id Int @default(autoincrement()) @id
+  title String
+  description String
+  userId String
+  user User @relation("UserToCard", fields: [userId], references: [id])
+  
   @@index([userId])
 }
