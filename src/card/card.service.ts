@@ -13,22 +13,33 @@ export class CardService {
     private readonly userService: UserService,
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
-    private readonly logger: LoggerService,
   ) {}
 
   async openPack(packId: number, userId: string) {
+    const result = [];
+
     const randomDogCard = this.configService.get<string>('DOG_API_URL');
 
-    const data = await firstValueFrom(
-      this.httpService.get<any>(randomDogCard).pipe(
-        catchError((error: AxiosError) => {
-          this.logger.error(error.response.data);
-          throw 'An error happened!';
-        }),
-      ),
-    );
+    for (let i = 0; i < 5; i++) {
+      const { data } = await firstValueFrom(
+        this.httpService.get<any>(randomDogCard).pipe(
+          catchError((error: AxiosError) => {
+            throw 'An error happened!';
+          }),
+        ),
+      );
 
-    console.log('data: ', data);
+      const item = await this.prismaService.card.create({
+        data: {
+          title: 'hihi',
+          image: data.message,
+          userId: userId,
+        },
+      });
+      result.push(item);
+    }
+
+    console.log(result);
 
     // return await this.prismaService.pack.deleteMany({
     //   where: {
