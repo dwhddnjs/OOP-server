@@ -16,6 +16,17 @@ export class CardService {
   ) {}
 
   async openPack(packId: number, userId: string) {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        cards: true,
+      },
+    });
+
+    console.log('user: ', user);
+
     const result = [];
 
     const randomDogCard = this.configService.get<string>('DOG_API_URL');
@@ -39,13 +50,23 @@ export class CardService {
       result.push(item);
     }
 
-    console.log(result);
+    await this.prismaService.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        cards: {
+          set: [...user.cards, ...result],
+        },
+      },
+    });
 
-    // return await this.prismaService.pack.deleteMany({
-    //   where: {
-    //     id: packId,
-    //     userId,
-    //   },
-    // });
+    await this.prismaService.pack.deleteMany({
+      where: {
+        id: packId,
+        userId,
+      },
+    });
+    return;
   }
 }
