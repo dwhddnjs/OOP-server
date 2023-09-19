@@ -21,9 +21,9 @@ export class StoreService {
     });
   }
 
-  async purChase(purChaseDto: PurchaseDto) {
+  async purChase(purChaseDto: PurchaseDto, userId: string) {
     const user = await this.prismaService.user.findUnique({
-      where: { id: purChaseDto.userId },
+      where: { id: userId },
       select: {
         packs: true,
       },
@@ -39,14 +39,14 @@ export class StoreService {
         price: purChaseDto.price,
         user: {
           connect: {
-            id: purChaseDto.userId,
+            id: userId,
           },
         },
       },
     });
 
     return await this.prismaService.user.update({
-      where: { id: purChaseDto.userId },
+      where: { id: userId },
       data: {
         packs: {
           set: [...user.packs, pack],

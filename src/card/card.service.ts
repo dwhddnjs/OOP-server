@@ -15,6 +15,18 @@ export class CardService {
     private readonly httpService: HttpService,
   ) {}
 
+  async getCards(userId: string) {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        cards: true,
+      },
+    });
+    return user.cards;
+  }
+
   async openPack(packId: number, userId: string) {
     const user = await this.prismaService.user.findUnique({
       where: {
@@ -24,8 +36,6 @@ export class CardService {
         cards: true,
       },
     });
-
-    console.log('user: ', user);
 
     const result = [];
 
@@ -40,33 +50,42 @@ export class CardService {
         ),
       );
 
-      const item = await this.prismaService.card.create({
-        data: {
-          title: 'hihi',
-          image: data.message,
-          userId: userId,
-        },
-      });
-      result.push(item);
+      if (data) {
+        console.log(data);
+        const splitUrl = data.message.split('/');
+        const title = splitUrl[splitUrl.length - 2].replace('-', ' ');
+        const item = await this.prismaService.card.create({
+          data: {
+            title: title,
+            image: data.message,
+            userId: userId,
+          },
+        });
+        result.push(item);
+      }
     }
 
-    await this.prismaService.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        cards: {
-          set: [...user.cards, ...result],
+    if (result.length > 0) {
+      await this.prismaService.user.update({
+        where: {
+          id: userId,
         },
-      },
-    });
+        data: {
+          cards: {
+            set: [...user.cards, ...result],
+          },
+        },
+      });
 
-    await this.prismaService.pack.deleteMany({
-      where: {
-        id: packId,
-        userId,
-      },
-    });
-    return;
+      await this.prismaService.pack.deleteMany({
+        where: {
+          id: packId,
+          userId,
+        },
+      });
+      return;
+    } else {
+      throw '에러';
+    }
   }
 }
