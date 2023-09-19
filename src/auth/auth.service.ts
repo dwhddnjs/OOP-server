@@ -78,8 +78,22 @@ export class AuthService {
     });
   }
 
-  async refreshTokens(userId: string, email: string): Promise<any> {
-    const tokens = this.getTokens(userId, email);
-    return tokens;
+  async refreshTokens(user): Promise<any> {
+    const currentRefresh = user.headers.authorization?.split(' ')[1] ?? [];
+
+    const findUser = await this.prismaService.user.findUnique({
+      where: {
+        id: user.user.sub,
+        refreshToken: currentRefresh,
+      },
+    });
+
+    if (findUser) {
+      const tokens = await this.getTokens(user.user.sub, user.user.email);
+      await this.updateRefresh(user.user.sub, tokens.refresh_token);
+      return tokens;
+    } else {
+      return;
+    }
   }
 }

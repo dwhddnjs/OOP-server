@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
   Request,
   UseGuards,
   UseInterceptors,
@@ -15,6 +16,7 @@ import { LoginDto } from './dto/login-dto';
 import { RtGuard } from 'src/guards/rt.guard';
 import { UserService } from 'src/user/user.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { AtGuard } from 'src/guards/at.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -38,10 +40,10 @@ export class AuthController {
   @UseGuards(RtGuard)
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
-  refreshTokens(@Request() req) {
+  refreshTokens(@Req() req) {
     const user = req;
-    console.log('user: ', user);
-    return this.authService.refreshTokens(user.id, user.refreshToken);
+
+    return this.authService.refreshTokens(user);
   }
 
   // @Post('logout')
