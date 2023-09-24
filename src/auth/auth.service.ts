@@ -27,6 +27,16 @@ export class AuthService {
     return { user, tokens };
   }
 
+  async logout(userId) {
+    await this.prismaService.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+
+    return;
+  }
+
   async validateUser(loginDto: LoginDto) {
     const user = await this.userService.findByEmail(loginDto.email);
 

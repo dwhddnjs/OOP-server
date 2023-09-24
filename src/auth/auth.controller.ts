@@ -46,9 +46,9 @@ export class AuthController {
     return this.authService.refreshTokens(user);
   }
 
-  // @Post('logout')
-  // @HttpCode(HttpStatus.OK)
-  // logout(userId: string): Promise<boolean> {
-  //   return this.authService.logout(userId);
-  // }
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  logout(userId: string): Promise<any> {
+    return this.authService.logout(userId);
+  }
 }
