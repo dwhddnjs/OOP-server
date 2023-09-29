@@ -5,6 +5,7 @@ import { Injectable, LoggerService } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
+import { getRandomTier } from 'common/getRandomTier';
 
 @Injectable()
 export class CardService {
@@ -58,6 +59,7 @@ export class CardService {
           data: {
             title: title,
             image: data.message,
+            tier: getRandomTier(),
             userId: userId,
           },
         });
@@ -83,7 +85,7 @@ export class CardService {
           userId,
         },
       });
-      return;
+      return result;
     } else {
       throw '에러';
     }

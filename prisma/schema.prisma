@@ -37,6 +37,7 @@ model Card {
   id Int @default(autoincrement()) @id
   image String
   title String
+  tier String
   userId String
   user User @relation(fields: [userId], references: [id])
   
