@@ -5,7 +5,7 @@ import { Injectable, LoggerService } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
-import { getRandomTier } from 'common/getRandomTier';
+import { getCardTier } from 'common/getRandomTier';
 
 @Injectable()
 export class CardService {
@@ -38,6 +38,12 @@ export class CardService {
       },
     });
 
+    const pack = await this.prismaService.pack.findUnique({
+      where: {
+        id: packId,
+      },
+    });
+
     const result = [];
 
     const randomDogCard = this.configService.get<string>('DOG_API_URL');
@@ -59,7 +65,7 @@ export class CardService {
           data: {
             title: title,
             image: data.message,
-            tier: getRandomTier(),
+            tier: getCardTier(pack.label),
             userId: userId,
           },
         });
