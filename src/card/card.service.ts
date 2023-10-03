@@ -28,6 +28,10 @@ export class CardService {
     return user.cards;
   }
 
+  async getCardPagination(page) {
+    return;
+  }
+
   async openPack(packId: number, userId: string) {
     const user = await this.prismaService.user.findUnique({
       where: {

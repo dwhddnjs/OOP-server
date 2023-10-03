@@ -1,6 +1,6 @@
 import { getUserId } from 'src/decorator/get-user-id.decorator';
 import { CardService } from './card.service';
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { AtGuard } from 'src/guards/at.guard';
 
 @Controller('card')
@@ -17,5 +17,11 @@ export class CardController {
   @Post()
   openPack(@Body('packId') packId: number, @getUserId() userId) {
     return this.cardService.openPack(packId, userId);
+  }
+
+  @UseGuards(AtGuard)
+  @Get()
+  getCardPagination(@Query('page') page: number) {
+    return this.cardService.getCardPagination(page);
   }
 }
