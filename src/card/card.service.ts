@@ -29,7 +29,12 @@ export class CardService {
   }
 
   async getCardPagination(page) {
-    return;
+    const card = await this.prismaService.card.findMany({
+      take: 10,
+      skip: (page - 1) * 10,
+    });
+
+    return card;
   }
 
   async openPack(packId: number, userId: string) {
