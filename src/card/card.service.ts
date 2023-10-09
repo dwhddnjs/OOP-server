@@ -16,19 +16,8 @@ export class CardService {
     private readonly httpService: HttpService,
   ) {}
 
-  async getCards(userId: string) {
-    const user = await this.prismaService.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        cards: true,
-      },
-    });
-    return user.cards;
-  }
-
-  async getCardPagination(page) {
+  async getCardPagination(page: number) {
+    console.log('page: ', page);
     const card = await this.prismaService.card.findMany({
       take: 10,
       skip: (page - 1) * 10,
