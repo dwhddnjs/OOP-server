@@ -23,8 +23,12 @@ export class RosterService {
         }),
       ),
     );
+
     const $ = cheerio.load(data);
-    const data2 = $('td > a.catlink-players').text();
-    const data3 = $('img').attr('src');
+    const $bodyList = $('li.record_list_profile__VF6_W')
+      .children('img')
+      .attr('src');
+
+    console.log('$bodyList: ', $bodyList);
   }
 }
