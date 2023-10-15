@@ -25,10 +25,19 @@ export class RosterService {
     );
 
     const $ = cheerio.load(data);
-    const $bodyList = $('li.record_list_profile__VF6_W')
-      .children('img')
-      .attr('src');
+    const $list = $('record_list_item__2fFsp');
 
-    console.log('$bodyList: ', $bodyList);
+    const result = [];
+    $list.each((i, el) => {
+      const imgData = $(el)
+        .find('.record_list_profile__VF6_W > img')
+        .attr('src');
+
+      console.log('imgData: ', imgData);
+      result.push(imgData);
+    });
+    // record_list_item__2fFsp
+
+    console.log('result: ', result);
   }
 }
