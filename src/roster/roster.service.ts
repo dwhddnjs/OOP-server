@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { players } from 'common/players';
 
 @Injectable()
 export class RosterService {
-  constructor() {}
-
-  async getPlayer() {}
+  async getPlayer() {
+    return players;
+  }
 }

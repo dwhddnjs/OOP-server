@@ -9,7 +9,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TransformInterceptor } from './interceptor/response-message.interceptor';
 import { CardModule } from './card/card.module';
 import { RosterModule } from './roster/roster.module';
-import { RosterModule } from './roster/roster.module';
 
 @Module({
   imports: [
