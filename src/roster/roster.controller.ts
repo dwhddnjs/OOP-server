@@ -1,5 +1,7 @@
+import { getUserId } from 'src/decorator/get-user-id.decorator';
+import { PlayersDto } from './dto/players-dto';
 import { RosterService } from './roster.service';
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
 @Controller('roster')
 export class RosterController {
@@ -8,5 +10,10 @@ export class RosterController {
   @Get()
   getPlayer() {
     return this.rosterService.getPlayer();
+  }
+
+  @Post()
+  saveRoster(@Body() players: PlayersDto[], @getUserId() userId: string) {
+    return this.rosterService.saveRoster(players, userId);
   }
 }
