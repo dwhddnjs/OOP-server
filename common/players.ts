@@ -185,7 +185,7 @@ export const players = {
       img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfNiAg/MDAxNjg4NjI2OTQxNzg3.NO_J7PQ1mA-bpLqiv0Npu35QphljeUTsMPJVvgVVb-wg.RkEru7_VXYLFGYVzmcAIcckIzJuUAz1X8Kar5tgSEkcg.PNG/JCZqkVvxbkADSfemqfjo.png',
     },
   ],
-  AD: [
+  ad: [
     {
       nickname: 'Peyz',
       team: 'Gen.G',
