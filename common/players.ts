@@ -5,6 +5,11 @@ export const players = {
       team: 'Gen.G',
       name: '최현준',
       img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfMjUz/MDAxNjg4NjI2NzAyMDkx.DBld4hTn99_IGSF1eZacPD1jQjxqNnTm19YV4yCLiL4g.r84zu-kgCNsJk7Dbm6rFtj6fznFL-foBmcj537tQ78Ug.PNG/iSUNFrWXXDGDgSQEHJfJ.png',
+      career: [
+        '2022 LCK Summer 우승',
+        '2023 LCK Spring 우승',
+        '2023 LCK Summer 우승',
+      ],
     },
     {
       nickname: 'Zeus',
