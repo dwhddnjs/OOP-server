@@ -16,6 +16,7 @@ export const players = {
       team: 'T1',
       name: '최우제',
       img: 'https://nng-phinf.pstatic.net/MjAyMzA5MTJfMjc5/MDAxNjk0NDk1OTAxNzky.VCK0Hke_4ezSS7XGbQgFwv1wWMZckAyvX6lWl1vBkVUg.mHaJl_J_wLve7kJgrJ9G18sXPRX1plAiQhenJVkEn3gg.PNG/vKSveLgIomQlJKGkTSpH.png',
+      career: ['2022 LCK Spring 우승', '2022 항저우 아시안 게임 금메달'],
     },
     {
       nickname: 'Burdol',
