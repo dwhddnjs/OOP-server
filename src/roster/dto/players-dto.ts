@@ -1,13 +1,10 @@
-import { players } from 'common/players';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { Player } from './../types/player';
+import { IsArray, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class PlayersDto {
   @IsString()
-  nickname: string;
-  @IsString()
-  team: string;
-  @IsString()
-  name: string;
-  @IsString()
-  img: string;
+  title: string;
+  @IsArray()
+  players: Player[];
 }

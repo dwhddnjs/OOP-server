@@ -21,18 +21,27 @@ model User {
   updatedAt DateTime @updatedAt
   packs Pack[] @relation()
   cards Card[] @relation()
-  roster Player[] @relation()
+  roster Roster[] @relation()
+}
 
+model Roster {
+  id Int @default(autoincrement()) @id
+  title String
+  players Player[] @relation()
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model Player {
   id Int @default(autoincrement()) @id
   nickname String
-  team String
-  name String
+  position String
   img String
-  userId String
-  user User @relation(fields: [userId], references: [id])
+  rosterId  Int
+  roster Roster @relation(fields: [rosterId], references: [id])
+  @@index([rosterId])
 }
 
 model Pack {
