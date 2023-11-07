@@ -14,8 +14,12 @@ export class RosterService {
   async getSavedRoster(userId: string) {
     const user = await this.prismaService.user.findUnique({
       where: { id: userId },
-      select: {
-        roster: true,
+      include: {
+        roster: {
+          include: {
+            players: true,
+          },
+        },
       },
     });
 
@@ -41,54 +45,50 @@ export class RosterService {
     const newRoster = await this.prismaService.roster.create({
       data: {
         title: playersDto.title,
-        user: {
-          connect: {
-            id: userId,
-          },
-        },
+        userId: userId,
       },
     });
 
-    // console.log('newRoster: ', newRoster);
+    const playerData = playersDto.players.map((player) => ({
+      nickname: player.nickname,
+      position: player.position,
+      img: player.img,
+      rosterId: newRoster.id,
+    }));
 
-    const roster = await playersDto.players.map((player) => {
-      return this.prismaService.player.create({
-        data: {
-          nickname: player.nickname,
-          position: player.position,
-          img: player.img,
-          roster: {
-            connect: {
-              id: newRoster.id,
-            },
-          },
-        },
-      });
-    });
+    const newPlayers = playerData.map((player) =>
+      this.prismaService.player.create({
+        data: player,
+      }),
+    );
 
-    const promiseAllRoster = await Promise.all(roster);
+    const promiseAllRoster = await Promise.all(newPlayers);
 
-    const updatedRoster = await this.prismaService.roster.update({
+    await this.prismaService.roster.update({
       where: {
         id: newRoster.id,
       },
       data: {
         players: {
-          connect: promiseAllRoster,
+          set: promiseAllRoster,
         },
+      },
+      include: {
+        players: true,
       },
     });
 
-    console.log('updatedRoster: ', updatedRoster);
-
-    await this.prismaService.user.update({
+    return await this.prismaService.user.update({
       where: {
         id: userId,
       },
       data: {
         roster: {
-          set: [...user.roster, updatedRoster],
+          set: [...user.roster, newRoster],
         },
+      },
+      include: {
+        roster: true,
       },
     });
   }
