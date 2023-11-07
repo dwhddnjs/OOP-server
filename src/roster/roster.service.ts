@@ -16,6 +16,9 @@ export class RosterService {
       where: { id: userId },
       include: {
         roster: {
+          orderBy: {
+            id: 'desc',
+          },
           include: {
             players: true,
           },
@@ -78,18 +81,34 @@ export class RosterService {
       },
     });
 
-    return await this.prismaService.user.update({
+    this.prismaService.user.update({
       where: {
         id: userId,
       },
       data: {
         roster: {
-          set: [...user.roster, newRoster],
+          set: [newRoster, ...user.roster],
         },
       },
       include: {
         roster: true,
       },
     });
+
+    const result = await this.prismaService.user.findUnique({
+      where: { id: userId },
+      include: {
+        roster: {
+          orderBy: {
+            id: 'desc',
+          },
+          include: {
+            players: true,
+          },
+        },
+      },
+    });
+
+    return result.roster;
   }
 }
