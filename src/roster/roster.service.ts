@@ -112,6 +112,13 @@ export class RosterService {
   }
 
   async removeRoster(rosterId, userId) {
-    return;
+    const result = await this.prismaService.roster.deleteMany({
+      where: {
+        id: rosterId,
+        userId,
+      },
+    });
+
+    return result;
   }
 }
