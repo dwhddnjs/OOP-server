@@ -29,7 +29,7 @@ model Roster {
   title String
   players Player[] @relation()
   userId String
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([userId])
 }

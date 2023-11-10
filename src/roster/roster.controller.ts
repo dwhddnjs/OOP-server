@@ -27,7 +27,7 @@ export class RosterController {
 
   @Delete()
   @UseGuards(AtGuard)
-  removeRoster(@Body() rosterId, @getUserId() userId: string) {
+  removeRoster(@Body() rosterId: number, @getUserId() userId: string) {
     return this.rosterService.removeRoster(rosterId, userId);
   }
 }
