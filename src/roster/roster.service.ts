@@ -2,7 +2,6 @@ import { PrismaService } from './../prisma/prisma.service';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { players } from 'common/players';
 import { PlayersDto } from './dto/players-dto';
-import { Player } from './types/player';
 
 @Injectable()
 export class RosterService {
@@ -110,5 +109,9 @@ export class RosterService {
     });
 
     return result.roster;
+  }
+
+  async removeRoster(rosterId, userId) {
+    return;
   }
 }
