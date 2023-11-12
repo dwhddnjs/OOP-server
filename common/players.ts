@@ -416,7 +416,7 @@ export const players = {
       nickname: 'Viper',
       team: '한화생명 e스포츠',
       name: '박도현',
-      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDdfMTg1/MDAxNjg4Njk0NzQwNDc1.EZ63TsaBhpfzXPGszO-B79IciBM9bBBOMwrNJrFbZYgg.r5frdLLsoDXE5r3CbljeRbBAwzbYTncUyc9R_Jy6RCAg.PNG/QUNCZXnofxzHtTCUPBch.png',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfMjc2/MDAxNjg4NjI2ODgzMjQw.4Ob59OesRDTDhfW3eqkWXhSev-mrXVL1iWqIqGdpT50g.WgtAo66XjNjN5TDzhZWM3KJ0ejFwYrOHHZLpeWZTb9cg.PNG/hqjAhhuOUsBmjasYzCKy.png',
       career: [
         '2018 LCK Spring 우승',
         '2018 LCK Summer 준우승',

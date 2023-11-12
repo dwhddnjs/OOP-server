@@ -111,14 +111,28 @@ export class RosterService {
     return result.roster;
   }
 
-  async removeRoster(rosterId, userId) {
-    const result = await this.prismaService.roster.deleteMany({
+  async removeRoster(rosterId, userId: string) {
+    await this.prismaService.roster.deleteMany({
       where: {
-        id: rosterId,
-        userId,
+        id: parseInt(rosterId),
+        userId: userId,
       },
     });
 
-    return result;
+    const user = await this.prismaService.user.findUnique({
+      where: { id: userId },
+      include: {
+        roster: {
+          orderBy: {
+            id: 'desc',
+          },
+          include: {
+            players: true,
+          },
+        },
+      },
+    });
+
+    return user.roster;
   }
 }

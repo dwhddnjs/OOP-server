@@ -1,7 +1,15 @@
 import { getUserId } from 'src/decorator/get-user-id.decorator';
 import { PlayersDto } from './dto/players-dto';
 import { RosterService } from './roster.service';
-import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AtGuard } from 'src/guards/at.guard';
 
 @Controller('roster')
@@ -25,9 +33,9 @@ export class RosterController {
     return this.rosterService.getSavedRoster(userId);
   }
 
-  @Delete()
+  @Delete('/:id')
   @UseGuards(AtGuard)
-  removeRoster(@Body() rosterId: number, @getUserId() userId: string) {
+  removeRoster(@Param('id') rosterId: string, @getUserId() userId: string) {
     return this.rosterService.removeRoster(rosterId, userId);
   }
 }
