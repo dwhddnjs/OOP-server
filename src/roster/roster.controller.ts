@@ -8,6 +8,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { AtGuard } from 'src/guards/at.guard';
@@ -37,5 +38,11 @@ export class RosterController {
   @UseGuards(AtGuard)
   removeRoster(@Param('id') rosterId: string, @getUserId() userId: string) {
     return this.rosterService.removeRoster(rosterId, userId);
+  }
+
+  @Put()
+  @UseGuards(AtGuard)
+  updateRoster(@Body() playersDto: PlayersDto, @getUserId() userId: string) {
+    return this.rosterService.updateRoster(playersDto, userId);
   }
 }

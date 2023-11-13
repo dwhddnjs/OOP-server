@@ -135,4 +135,18 @@ export class RosterService {
 
     return user.roster;
   }
+
+  async updateRoster(updateRosterDto, userId) {
+    const result = await this.prismaService.roster.updateMany({
+      where: {
+        id: updateRosterDto.id,
+        userId,
+      },
+      data: {
+        ...updateRosterDto,
+      },
+    });
+
+    return result;
+  }
 }
