@@ -12,6 +12,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AtGuard } from 'src/guards/at.guard';
+import { UpdateRosterDto } from './dto/update-roster-dto';
 
 @Controller('roster')
 export class RosterController {
@@ -42,7 +43,10 @@ export class RosterController {
 
   @Put()
   @UseGuards(AtGuard)
-  updateRoster(@Body() playersDto: PlayersDto, @getUserId() userId: string) {
-    return this.rosterService.updateRoster(playersDto, userId);
+  updateRoster(
+    @Body() updateRosterDto: UpdateRosterDto,
+    @getUserId() userId: string,
+  ) {
+    return this.rosterService.updateRoster(updateRosterDto, userId);
   }
 }

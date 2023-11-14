@@ -137,16 +137,32 @@ export class RosterService {
   }
 
   async updateRoster(updateRosterDto, userId) {
-    const result = await this.prismaService.roster.updateMany({
+    await this.prismaService.roster.deleteMany({
       where: {
         id: updateRosterDto.id,
         userId,
       },
-      data: {
-        ...updateRosterDto,
+    });
+
+    await this.saveRoster(
+      { title: updateRosterDto.title, players: updateRosterDto.players },
+      userId,
+    );
+
+    const result = await this.prismaService.user.findUnique({
+      where: { id: userId },
+      include: {
+        roster: {
+          orderBy: {
+            id: 'desc',
+          },
+          include: {
+            players: true,
+          },
+        },
       },
     });
 
-    return result;
+    return result.roster;
   }
 }
