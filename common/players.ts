@@ -28,6 +28,7 @@ export const players = {
         '2023 LCK Spring 준우승',
         '2023 LCK Summer 준우승',
         '2022 항저우 아시안 게임 금메달',
+        '2023 Worlds 우승',
       ],
     },
     {
@@ -93,6 +94,20 @@ export const players = {
       img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfMjcy/MDAxNjg4NjI2ODgzNjQw.Rb2ehxofhFd8Q2iRBFdHESPV_c3dF5KlOSepG_mZ_38g.PzMhhUTRURDblxv0kdwiN2L3tiMrB4Nu1nApuHWx_Kkg.PNG/elEdCvYCajrrjybQnQYJ.png',
       career: ['2018 LCK Summer 우승', '2022 Worlds 우승'],
     },
+    {
+      nickname: 'PerfecT',
+      team: 'KT 롤스터',
+      name: '이승민',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzEwMDlfNTYg/MDAxNjk2ODI3ODYwNzU0.0JDX3qNhLWQBf_XdW5DKrstNalf0NucajcWhqps2teUg.ALahJyTVP06AVTHTVtgt846EeeA3hUe2-xNS_Ncoo1Qg.PNG/BiGfdOWAqVUlEYhuLYDo.png',
+      career: null,
+    },
+    {
+      nickname: 'Clear',
+      team: '리브 샌드박스',
+      name: '송현민',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDhfMTkz/MDAxNjg4ODA0OTAxMDM4.ZnYjS-JDA-mIULbGoV6VHChSDSIa7A7wO_4ZYitOgtQg.2SzzOXRHA0aYkcIBSDWbAgTxjqN4pOnRoLt1QSwLTjAg.PNG/UewuQeQeKHlJslOvIexE.png',
+      career: null,
+    },
   ],
   jgl: [
     {
@@ -129,6 +144,7 @@ export const players = {
         '2022 Worlds 준우승',
         '2023 LCK Spring 준우승',
         '2023 LCK Summer 준우승',
+        '2023 Worlds 우승',
       ],
     },
     {
@@ -200,6 +216,13 @@ export const players = {
       img: 'https://nng-phinf.pstatic.net/MjAyMzA2MjhfMTEz/MDAxNjg3OTM2ODI1MDU1.m8QgNOzkrx-tsPaWanziQ-WYgUd9X_vKDjpjhOma9zkg.VdcC03xlD7MRNw_22y55xZmYOe0tcDdKw4m9Ft1Nt2sg.PNG/VRoIXgqrkdmFHcnyEKUc.png',
       career: null,
     },
+    {
+      nickname: 'Juhan',
+      name: '이주한',
+      team: 'DRX',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfMjM0/MDAxNjg4NjI2NTIxMDQ1.VxFvWX4tDAVYZKUnR-TMp-sNgxyi-CANBx3saG-JlaUg.q0jhrxduJGYlzPYWT1Oeyp98OKIAwqA01HLuGSLkpZ8g.PNG/UrgGLjgqupoHJzUHEfgu.png',
+      career: ['2022 Worlds 우승'],
+    },
   ],
   mid: [
     {
@@ -230,6 +253,7 @@ export const players = {
         '2016 Worlds 우승',
         '2017 Worlds 준우승',
         '2022 Worlds 준우승',
+        '2023 Worlds 우승',
         '2015 MSI 준우승',
         '2016 MSI 우승',
         '2017 MSI 우승',
@@ -323,6 +347,41 @@ export const players = {
       img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfNiAg/MDAxNjg4NjI2OTQxNzg3.NO_J7PQ1mA-bpLqiv0Npu35QphljeUTsMPJVvgVVb-wg.RkEru7_VXYLFGYVzmcAIcckIzJuUAz1X8Kar5tgSEkcg.PNG/JCZqkVvxbkADSfemqfjo.png',
       career: ['2022 Worlds 우승'],
     },
+    {
+      nickname: 'Sky',
+      team: 'T1',
+      name: '김하늘',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA1MjVfNzIg/MDAxNjg1MDA0MzIwMzQ1.DKoMsIy2vmo_xut658TeEp49Gst2AUuyqgs3jeFcoOEg.Z0HAt0J6JtUl8sva86nyd6ssKDLyYwq2CLNcbkTvskgg.PNG/RznuclZJKsfawhNewaIZ.png',
+      career: [
+        '2017 LCK Spring 우승',
+        '2017 LCK Summer 준우승',
+        '2023 LCK Spring 우승',
+        '2023 LCK Summer 준우승',
+
+        '2023 Worlds 우승',
+      ],
+    },
+    {
+      nickname: 'kyeahoo',
+      name: '강예후',
+      team: 'DRX',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfNDQg/MDAxNjg4NjI2NTg1MzMw.QFgZ-WSSVnYYch9n29jhPGKTDyG8vuBB1Cd_An3p2pYg.zh1iVfE7j4WmxoQxcQ4T4Kgz5jyG0ZCSO65M770c6cIg.PNG/FPWWdmJcUnkaXUiGtqJY.png',
+      career: null,
+    },
+    {
+      nickname: 'Quad',
+      team: '농심 레드포스',
+      name: '송수현',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzExMjBfMjgw/MDAxNzAwNDUzNzgyNzY5.u_FM6kUn8qdGKbbNFuesnIr4gmBsYPw93dfNrGogyY8g.TzA5WZTxXow3Omse1HsfDurJ7aQmUasUcIaQ7agr6Hkg.PNG/NkJjkcvVXdBHrLXLGOFv.png',
+      career: ['2020 LCK Summer 준우승'],
+    },
+    {
+      nickname: 'Callme',
+      team: '농심 레드포스',
+      name: '오지훈',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDdfMTQz/MDAxNjg4NzA0NTIxODE2.r0jhqKCLb_wDOV0GBjCAyayTPHpcfKgseA1kSxvs9K0g.qKGCfhm0UPn325tUskKFEE_m6naiqVM2LeOkSzcEKNMg.PNG/FDVSjODXyaFJvLZSaslj.png',
+      career: null,
+    },
   ],
   ad: [
     {
@@ -346,6 +405,7 @@ export const players = {
         '2022 Worlds 준우승',
         '2023 LCK Spring 준우승',
         '2023 LCK Summer 준우승',
+        '2023 Worlds 우승',
       ],
     },
     {
@@ -426,6 +486,34 @@ export const players = {
         '2021 Worlds 우승',
       ],
     },
+    {
+      nickname: 'Deokdam',
+      name: '서대길',
+      team: 'DRX',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfMTkw/MDAxNjg4NjE2NzQyNTkz.MAkdO2rYyyITLAwk8903GIUf6oMVRWeWHDAAdjOfD9Ug.8Carzr6vOSFCGWvq6NPzp-ThAiz6xduVCVxSsNz7Go0g.PNG/KwFHjypwcQmutPkoDTIc.png',
+      career: null,
+    },
+    {
+      nickname: 'Pleata',
+      name: '손민우',
+      team: 'DRX',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MTBfMTYz/MDAxNjg4OTc3NTg3MjY4.0ajhQlxJbmoA6okuGUtgGo-T43ptodq71BkRhN-NyHwg.0G6jQlNpdymCPoDRTnX4OYrg5gjGhCysI60lUdx6vS4g.PNG/oYtAJvtWdFvvipZlTBSz.png',
+      career: null,
+    },
+    {
+      nickname: 'Vital',
+      team: '농심 레드포스',
+      name: '하인성',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfNzAg/MDAxNjg4NjI3Nzg0Mjgx.xrUgzG0ZRYg4NqgPeUQ5Zh109_vB00qmjFFQqSb6CLQg.UuGSljjZbZu3nbdKfLpAfzCObXiGJEUhJWqu74HuQjgg.PNG/GrVgThejeKoKenBFXHYi.png',
+      career: null,
+    },
+    {
+      nickname: 'Envyy',
+      team: '리브 샌드박스',
+      name: '이명준',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA1MjVfMjUz/MDAxNjg0OTkwNzAxMTAy.926BY08zcO17raZQMx4D-Zb0csSh0kIDJuOTnN1rE6sg.6F-hhTuXOeg1PAevU6sEou1gp-d1rHuqHUiKk0ri_7Eg.PNG/pnxjnlgzCKXMuZWsxlJC.png',
+      career: null,
+    },
   ],
   spt: [
     {
@@ -450,6 +538,7 @@ export const players = {
         '2023 LCK Spring 준우승',
         '2023 LCK Summer 준우승',
         '2022 항저우 아시안 게임 금메달',
+        '2023 Worlds 우승',
       ],
     },
     {
@@ -525,6 +614,27 @@ export const players = {
       name: '김정민',
       img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDZfMTAy/MDAxNjg4NjI2ODgzNDUy.PlhmyoEEgppJACBqOIsTlJyxBRlpIRgaSWL1zdto6KMg.POgG4_i-jO23hDIcxIk_s3ftVtaxEccPNQTOnkVMEc4g.PNG/lboQwgbUEGPCvsjTCuAY.png',
       career: ['2020 LCK Spring 준우승', '2021 LCK Spring 준우승'],
+    },
+    {
+      name: '윤설',
+      nickname: 'Bible',
+      team: 'Dplus KIA',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MjhfMjIg/MDAxNjkwNTMxNDYwNzUy.f5zv6SCex3xZrtatFwVhRPXh7J6G68Ce1-a8XA7MkV8g.VsRmpiJ9bmMCFenHVrmbrKn5lW-oDSKv-33iP4Mh1p8g.PNG/LUNyYQVIMgEROuuIKdJi.png',
+      career: null,
+    },
+    {
+      nickname: 'Andil',
+      team: '광동 프릭스',
+      name: '문관빈',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDlfMTkw/MDAxNjg4ODg4NjAwOTI5.8VFcl9z3-3OpDBHRVuvuDMKNPeGvbNHz-f8em6XhSlog.zbXS_uJxQS_rPoPTiGxAqtUQayYd64O5Fa4l6kLZiiIg.PNG/POrqUpKXMgATsjuqzWms.png',
+      career: null,
+    },
+    {
+      nickname: 'Moham',
+      team: '광동 프릭스',
+      name: '정재훈',
+      img: 'https://nng-phinf.pstatic.net/MjAyMzA3MDdfMjcx/MDAxNjg4NzA2MjAwNTQ2.btcz_I9WUh73XJYH5OGRuztWMkCxB08_xLmC-FC1xEcg.qNazYSk6oerbYDjBg2i0iCg6XWBdY2o_epKitDtrXWog.PNG/PJyGmWxKDFoJUadjrwAP.png',
+      career: null,
     },
   ],
 };
