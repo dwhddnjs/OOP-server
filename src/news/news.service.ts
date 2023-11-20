@@ -6,10 +6,11 @@ import axios from 'axios';
 export class NewsService {
   constructor(private readonly configService: ConfigService) {}
 
-  async getNews() {
-    const naverId = await this.configService.get<string>('NAVER_ID');
-    const naverSecret = await this.configService.get<string>('NAVER_SECRET');
-    const naverUrl = await this.configService.get<string>('NAVER_URL');
+  async getNews(page: string) {
+    console.log('page: ', page);
+    const naverId = this.configService.get<string>('NAVER_ID');
+    const naverSecret = this.configService.get<string>('NAVER_SECRET');
+    const naverUrl = this.configService.get<string>('NAVER_URL');
 
     const data = await axios({
       url: naverUrl,
@@ -18,7 +19,7 @@ export class NewsService {
       params: {
         query: 'lck',
         display: 10,
-        start: 1,
+        start: page,
         sort: 'date',
       },
       headers: {
@@ -27,6 +28,9 @@ export class NewsService {
       },
     });
 
-    return data?.data.items;
+    return {
+      page: parseInt(page),
+      data: data?.data?.items,
+    };
   }
 }

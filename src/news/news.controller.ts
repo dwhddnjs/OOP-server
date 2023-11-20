@@ -1,12 +1,12 @@
 import { NewsService } from './news.service';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 
 @Controller('news')
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}
 
   @Get()
-  getNews() {
-    return this.newsService.getNews();
+  getNews(@Query('page') page: string) {
+    return this.newsService.getNews(page);
   }
 }

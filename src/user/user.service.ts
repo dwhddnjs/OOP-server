@@ -40,7 +40,6 @@ export class UserService {
       where: {
         id: userId,
       },
-      include: { packs: true },
     });
   }
 }

@@ -4,10 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
-import { StoreModule } from './store/store.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TransformInterceptor } from './interceptor/response-message.interceptor';
-import { CardModule } from './card/card.module';
 import { RosterModule } from './roster/roster.module';
 import { NewsModule } from './news/news.module';
 
@@ -17,8 +15,6 @@ import { NewsModule } from './news/news.module';
     AuthModule,
     PrismaModule,
     UserModule,
-    StoreModule,
-    CardModule,
     RosterModule,
     NewsModule,
   ],

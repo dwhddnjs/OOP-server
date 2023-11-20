@@ -49,8 +49,10 @@ export class AuthService {
         const { password, ...result } = user;
         return result;
       } else {
-        throw new UnauthorizedException();
+        throw new UnauthorizedException('아이디가 존재하지않습니다');
       }
+    } else {
+      throw new UnauthorizedException('아이디가 존재하지않습니다');
     }
   }
 
