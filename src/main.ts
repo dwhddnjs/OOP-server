@@ -6,7 +6,7 @@ declare const module: any;
 
 async function bootstrap() {
   // const PORT = process.env.PORT;
-  const PORT = 8080;
+  const PORT = 3000;
 
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api/v1');
