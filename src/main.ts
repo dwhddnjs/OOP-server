@@ -11,7 +11,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
-  await app.listen(PORT, 'localhost');
+  await app.listen(8080, 'localhost');
   console.log(`Application is running on: ${await app.getUrl()}`);
 
   if (module.hot) {
