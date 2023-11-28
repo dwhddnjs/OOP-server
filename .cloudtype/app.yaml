@@ -5,7 +5,7 @@ options:
     - name: NODE_ENV
       value: production
     - name: SHADOW_DATABASE_URL
-      value: mysql://5fbpqf73h8lykay07ss1:pscale_pw_9Mzr47NanvHohWxqJ1f6yCjzO1uHo5qfMksV7dzQs1F@aws.connect.psdb.cloud/lolstar-db?sslaccept=strict
+      value: mysql://root:a102030@localhost:3306/server-db
     - name: DATABASE_URL
       value: mysql://5fbpqf73h8lykay07ss1:pscale_pw_9Mzr47NanvHohWxqJ1f6yCjzO1uHo5qfMksV7dzQs1F@aws.connect.psdb.cloud/lolstar-db?sslaccept=strict
     - name: PASSWORD
