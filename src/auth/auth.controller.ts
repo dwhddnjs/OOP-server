@@ -21,7 +21,7 @@ import { AtGuard } from 'src/guards/at.guard';
 @Controller('auth')
 export class AuthController {
   constructor(
-    private authService: AuthService,
+    private readonly authService: AuthService,
     private readonly userService: UserService,
   ) {}
 
