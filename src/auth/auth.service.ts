@@ -28,13 +28,14 @@ export class AuthService {
   }
 
   async logout(userId) {
-    await this.prismaService.user.delete({
+    return await this.prismaService.user.update({
       where: {
         id: userId,
       },
+      data: {
+        refreshToken: null,
+      },
     });
-
-    return;
   }
 
   async validateUser(loginDto: LoginDto) {

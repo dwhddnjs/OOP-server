@@ -17,6 +17,7 @@ import { RtGuard } from 'src/guards/rt.guard';
 import { UserService } from 'src/user/user.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AtGuard } from 'src/guards/at.guard';
+import { getUserId } from 'src/decorator/get-user-id.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -42,13 +43,13 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   refreshTokens(@Req() req) {
     const user = req;
-
     return this.authService.refreshTokens(user);
   }
 
+  @UseGuards(AtGuard)
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  logout(userId: string): Promise<any> {
+  logout(@getUserId() userId) {
     return this.authService.logout(userId);
   }
 }
