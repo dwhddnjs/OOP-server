@@ -109,4 +109,29 @@ export class AuthService {
       return;
     }
   }
+
+  async googleAuth(req: any) {
+    console.log('req: ', req.user);
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        email: req.user.email,
+        socialProvider: 'google',
+      },
+    });
+
+    if (user) {
+      return await this.updateRefresh(user.id, req.user.refreshToken);
+    } else {
+      const newUser = await this.prismaService.user.create({
+        data: {
+          name: `${req.user.firstName} ${req.user.lastName}`,
+          email: req.user.email,
+          socialProvider: req.user.socialProvider,
+          refreshToken: req.user.refreshToken,
+        },
+      });
+      const { password, ...result } = newUser;
+      return result;
+    }
+  }
 }

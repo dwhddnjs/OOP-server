@@ -16,11 +16,12 @@ model User {
   id    String   @id @default(uuid()) 
   name  String?
   email String  @unique
-  password String
+  password String?
   refreshToken String? @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   roster Roster[] @relation()
+  socialProvider String @default("local")
 }
 
 model Roster {

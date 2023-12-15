@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Get,
   Req,
   Request,
   UseGuards,
@@ -18,6 +19,7 @@ import { UserService } from 'src/user/user.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AtGuard } from 'src/guards/at.guard';
 import { getUserId } from 'src/decorator/get-user-id.decorator';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -51,5 +53,17 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   logout(@getUserId() userId) {
     return this.authService.logout(userId);
+  }
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  googleLogin() {
+    // redirect google login page
+  }
+
+  @Get('google/redirect')
+  @UseGuards(AuthGuard('google'))
+  googleAuth(@Req() req) {
+    return this.authService.googleAuth(req);
   }
 }
