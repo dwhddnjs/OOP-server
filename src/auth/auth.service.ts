@@ -7,6 +7,7 @@ import { JwtPayload } from './types';
 import { ConfigService } from '@nestjs/config';
 import { Tokens } from './types/tokens.type';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { GoogleAuthDto } from './dto/google-auth-dto';
 
 @Injectable()
 export class AuthService {
@@ -110,28 +111,37 @@ export class AuthService {
     }
   }
 
-  async googleAuth(req: any) {
-    console.log('req: ', req.user);
+  async googleAuth(googleAuthDto: GoogleAuthDto) {
     const user = await this.prismaService.user.findUnique({
       where: {
-        email: req.user.email,
+        email: googleAuthDto.email,
         socialProvider: 'google',
       },
     });
 
     if (user) {
-      return await this.updateRefresh(user.id, req.user.refreshToken);
+      const tokens = await this.getTokens(user.id, user.email);
+      await this.updateRefresh(user.id, tokens.refresh_token);
+      return {
+        user,
+        tokens,
+      };
     } else {
       const newUser = await this.prismaService.user.create({
         data: {
-          name: `${req.user.firstName} ${req.user.lastName}`,
-          email: req.user.email,
-          socialProvider: req.user.socialProvider,
-          refreshToken: req.user.refreshToken,
+          ...googleAuthDto,
+          socialProvider: 'google',
         },
       });
-      const { password, ...result } = newUser;
-      return result;
+      const { ...result } = newUser;
+      if (result) {
+        const tokens = await this.getTokens(result.id, result.email);
+        await this.updateRefresh(result.id, tokens.refresh_token);
+        return {
+          result,
+          tokens,
+        };
+      }
     }
   }
 }

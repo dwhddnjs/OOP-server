@@ -20,6 +20,7 @@ import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AtGuard } from 'src/guards/at.guard';
 import { getUserId } from 'src/decorator/get-user-id.decorator';
 import { AuthGuard } from '@nestjs/passport';
+import { GoogleAuthDto } from './dto/google-auth-dto';
 
 @Controller('auth')
 export class AuthController {
@@ -55,15 +56,8 @@ export class AuthController {
     return this.authService.logout(userId);
   }
 
-  @Get('google')
-  @UseGuards(AuthGuard('google'))
-  googleLogin() {
-    // redirect google login page
-  }
-
-  @Get('google/redirect')
-  @UseGuards(AuthGuard('google'))
-  googleAuth(@Req() req) {
-    return this.authService.googleAuth(req);
+  @Post('google')
+  googleAuth(@Body() googleAuthDto: GoogleAuthDto) {
+    return this.authService.googleAuth(googleAuthDto);
   }
 }
